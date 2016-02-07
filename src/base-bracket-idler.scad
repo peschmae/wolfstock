@@ -4,7 +4,8 @@ use <misumi-parts-library.scad>;
 use <tensioner_608.scad>
 
 // set to 1 if using makerslide and set to 0 if using 2040 or vslot
-use_makerslide= 0;
+use_makerslide= 1;
+show_support= 0;
 
 thick= 4;
 height= 20;
@@ -28,7 +29,7 @@ frame_idler();
 //translate([50,0,0]) arms(cutout=0, thickness=6);
 
 // show supporting structure
-if (true) {
+if (show_support == 1) {
 	if(use_makerslide == 1) {
 		color("gray") translate([20,0,50]) rotate([0, 0, 180]) makerslide(100);
 	}else{
@@ -82,23 +83,20 @@ module frame_idler() {
 		translate([-4,0,-1]) rotate([0, 0, -90]) back_cutout();
 		// mounting holes
 		mounting_holes();
-		// idler tension bolt
-		translate([33, -10, -1]) slot(d=5, l= 8, ht= 40);
-		translate([32.5, -10, 6]) slot(d=12, l= 12, ht= 30);
 	}
 }
 
 module mounting_holes() {
 	h= height/2;
 	posl= [ [22,48, h], [-12,70, h]];
-	posr= [ [offsetX(-14),offsetY(0), h], [offsetX(-40),offsetY(-55), h]];
+    posr= [ [22,-48, h], [-12,-70, h]];
 	posb= [ [55,-10, h], [55,10, h]];
 
 	for(p= posl) {
-		#translate(p) rotate([90, 0, -30]) hole(5, 60);
+		#translate(p) rotate([90, 0, -30]) hole(5, 30);
 	}
 	for(p= posr) {
-		#translate(p) rotate([90, 0, 30]) hole(5, 60);
+		#translate(p) rotate([270, 0, 30]) hole(5, 30);
 	}
 	for(p= posb) {
 		#translate(p) rotate([0, 90, 0]) hole(5, 20);
