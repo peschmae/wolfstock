@@ -83,7 +83,14 @@ module frame_idler() {
 		translate([-4,0,-1]) rotate([0, 0, -90]) back_cutout();
 		// mounting holes
 		mounting_holes();
+        // screw whole for GT2 belt doublebearing
+        gt2_fixation();
+        
 	}
+}
+
+module gt2_fixation() {
+    #translate( [35, 0, 10] ) rotate([90, 0, -90]) hole(5, 40);
 }
 
 module mounting_holes() {
